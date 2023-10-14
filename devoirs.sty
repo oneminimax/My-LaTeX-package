@@ -1,0 +1,161 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{devoirs}
+
+\usepackage[french]{babel}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{multicol}
+% \setlength{\multicolsep}{6.0pt plus 2.0pt minus 0pt}
+\usepackage{xcolor}
+\usepackage[shortlabels]{enumitem}
+% \setlist{itemsep=2pt}
+
+\usepackage[margin=2cm]{geometry}
+
+% \usepackage{mdframed}
+
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{physics}
+
+\definecolor{paired1a}{HTML}{a6cee3}
+\definecolor{paired1b}{HTML}{1f78b4}
+\definecolor{paired2a}{HTML}{b2df8a}
+\definecolor{paired2b}{HTML}{33a02c}
+\definecolor{paired3a}{HTML}{fb9a99}
+\definecolor{paired3b}{HTML}{e31a1c}
+\definecolor{paired4a}{HTML}{fdbf6f}
+\definecolor{paired4b}{HTML}{ff7f00}
+\definecolor{paired5a}{HTML}{cab2d6}
+\definecolor{paired5b}{HTML}{6a3d9a}
+\definecolor{paired6a}{HTML}{ffff99}
+\definecolor{paired6b}{HTML}{b15928}
+
+\colorlet{qubitfirsta}{paired3a}
+\colorlet{qubitfirstb}{paired3b}
+
+\colorlet{qubitlasta}{paired1a}
+\colorlet{qubitlastb}{paired1b}
+
+\colorlet{qubit0a}{paired3a}
+\colorlet{qubit0b}{paired3b}
+
+\colorlet{qubit1a}{paired1a}
+\colorlet{qubit1b}{paired1b}
+
+\colorlet{qubit2a}{paired4a}
+\colorlet{qubit2b}{paired4b}
+
+\colorlet{qubit3a}{paired2a}
+\colorlet{qubit3b}{paired2b}
+
+\usepackage[many]{tcolorbox}
+
+% \setlength\parindent{0pt}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=gray,
+    citecolor=cyan
+}
+
+\makeatletter
+   \def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
+\makeatother
+
+\newenvironment{linedsection}[1]{
+    \par\noindent\rule{0.05\textwidth}{1pt}\,\,\raisebox{-.3\ht\strutbox}{\textbf{#1}}\,\,\vhrulefill{1pt}\par \vspace{0.4cm}
+}{
+    \par\vspace{0.4cm}
+} 
+
+\newcounter{exercicecounter}
+\newenvironment{exercice}[1]{
+    \refstepcounter{exercicecounter}
+    \begin{linedsection}{Exercice \theexercicecounter : #1}
+}{
+    \end{linedsection}
+} 
+
+\newenvironment{solutionexercice}[1][\theimplcounter]{
+    \color{gray}
+    \begin{linedsection}{Solution exercice #1}
+}{
+    \end{linedsection}
+}
+
+\newcounter{questioncounter}
+\newenvironment{question}[1]{
+    \refstepcounter{questioncounter}
+    \begin{linedsection}{Question \thequestioncounter : #1}
+}{
+    \end{linedsection}
+}
+
+\newenvironment{solutionquestion}[1][\theimplcounter]{
+    \color{gray}
+    \begin{linedsection}{Solution question #1}
+}{
+    \end{linedsection}
+}
+
+\newenvironment{questionexamen}[2]{
+    \refstepcounter{questioncounter}
+    \begin{linedsection}{Question \thequestioncounter : #1 (#2 pts)}
+}{
+    \end{linedsection}
+}
+
+\tcbset{mytcbbasestyle/.style={
+    fontupper=\small,
+    fontlower=\small,
+    fonttitle=\small\bfseries,
+	frame hidden,
+	left=1mm, right=1mm,
+    top=1mm, bottom=1mm,
+    toptitle=0mm, bottomtitle=0mm,
+	boxrule=0pt,
+    titlerule=1pt,
+    boxsep=1mm,
+	colback=red!20!white,
+    colframe=white,
+    colbacktitle=red!50!white,
+	coltitle=black,
+	arc=0mm,
+	auto outer arc,
+    before skip=3mm plus 1mm minus 1mm,
+    after skip=3mm plus 1mm minus 1mm,
+	% before = \vglue 1mm,
+    % after skip = \vglue 1mm,
+	% breakable,
+	pad at break=1mm,
+	% oversize,
+	enhanced,
+	skin=enhanced jigsaw,
+    shrink break goal = 2em,
+	% after=\color{black},
+    % before skip=2pt plus 2pt minus 0pt,
+    parbox=false,
+}}
+
+\newcommand{\remarquecolor}{paired4b}
+\newtcolorbox[auto counter,number within=section]{remarque}[1][]{
+    mytcbbasestyle,
+    colback=\remarquecolor!20!white,
+    colframe=white,
+    colbacktitle=\remarquecolor!50!white,
+	coltitle=black,
+    title={Remarque},
+    #1
+}
