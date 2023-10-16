@@ -1,0 +1,203 @@
+\documentclass[tikz]{standalone}
+\usepackage{physics}
+
+\usetikzlibrary{arrows.meta}
+
+\definecolor{paired1a}{HTML}{a6cee3}
+\definecolor{paired1b}{HTML}{1f78b4}
+\definecolor{paired2a}{HTML}{b2df8a}
+\definecolor{paired2b}{HTML}{33a02c}
+\definecolor{paired3a}{HTML}{fb9a99}
+\definecolor{paired3b}{HTML}{e31a1c}
+\definecolor{paired4a}{HTML}{fdbf6f}
+\definecolor{paired4b}{HTML}{ff7f00}
+\definecolor{paired5a}{HTML}{cab2d6}
+\definecolor{paired5b}{HTML}{6a3d9a}
+\definecolor{paired6a}{HTML}{ffff99}
+\definecolor{paired6b}{HTML}{b15928}
+
+\begin{document} 
+
+\tikzset{
+  mark coordinate/.style={inner sep=0pt,outer sep=0pt,minimum size=4pt,fill=black,circle},
+}
+
+\tikzstyle{hidden} = [densely dashed, black!40!white]
+
+\newcommand\pgfblochstate[4]{
+  \pgfmathsetmacro#1{
+    \radius*(
+      sin(#4)*sin(\phiView)*sin(#3) 
+    - sin(#3)*cos(#4)*cos(\phiView)
+    )}%
+  \pgfmathsetmacro#2{
+    \radius*(
+      -sin(#4)*sin(#3)*sin(\thetaView)*cos(\phiView) 
+      - sin(\phiView)*sin(#3)*sin(\thetaView)*cos(#4) 
+      + cos(#3)*cos(\thetaView)
+      )}%
+}
+
+% \pgfmathsetmacro\Sx{\radius*(sin(\phiState)*sin(\phiView)*sin(\thetaState) - sin(\thetaState)*cos(\phiState)*cos(\phiView))}
+% \pgfmathsetmacro\Sy{\radius*(-sin(\phiState)*sin(\thetaState)*sin(\thetaView)*cos(\phiView) - sin(\phiView)*sin(\thetaState)*sin(\thetaView)*cos(\phiState) + cos(\thetaState)*cos(\thetaView))}
+
+
+\newcommand\pgfmathsinandcos[3]{%
+  \pgfmathsetmacro#1{sin(#3)}%
+  \pgfmathsetmacro#2{cos(#3)}%
+}
+\newcommand\LongitudePlane[3][current plane]{%
+  \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+  \pgfmathsinandcos\sint\cost{#3} % azimuth
+  \tikzset{#1/.style={cm={\cost,\sint*\sinEl,0,\cosEl,(0,0)}}}
+}
+\newcommand\LatitudePlane[3][current plane]{%
+  \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+  \pgfmathsinandcos\sint\cost{#3} % latitude
+  \pgfmathsetmacro\yshift{\cosEl*\sint}
+  \tikzset{#1/.style={cm={\cost,0,0,\cost*\sinEl,(0,\yshift)}}} %
+}
+
+\newcommand\DrawLongitudeCircle[2][1]{
+  \LongitudePlane{\thetaView}{#2}
+  \tikzset{current plane/.prefix style={scale=#1}}
+   % angle of "visibility"
+  \pgfmathsetmacro\angVis{atan(sin(#2)*cos(\thetaView)/sin(\thetaView))} %
+  \draw[current plane] (\angVis:1) arc (\angVis:\angVis+180:1);
+  \draw[current plane,hidden] (\angVis-180:1) arc (\angVis-180:\angVis:1);
+}
+
+\newcommand\DrawLatitudeCircle[3]{
+  \draw[#1,hidden] (-\phiView:#3) arc (-\phiView:-180-\phiView:#3);
+  \draw[#1] (-\phiView:#3) arc (-\phiView:180-\phiView:#3);
+}
+
+
+
+\begin{tikzpicture}[scale=1.5]
+
+    \def\radius{1.5} % sphere radius
+    \def\thetaView{15} % elevation angle
+    \def\phiView{60} % azimuth angle
+
+    \def\thetaState{35} % elevation angle
+    \def\phiState{65} % azimuth angle
+
+    \def\Xspan{2.2} % sphere radius
+    \def\Yspan{1.8} % elevation angle
+    \def\Zspan{1.6} % azimuth angle
+    
+    \tikzset{xyplane/.style={cm={
+        -cos(\phiView), -sin(\phiView)*sin(\thetaView),
+        sin(\phiView), -sin(\thetaView)*cos(\phiView),
+        (0,0)
+        }}}
+
+    \tikzset{xzplane/.style={cm={
+        -cos(\phiView), -sin(\thetaView)*sin(\phiView),
+        0, cos(\thetaView),
+        (0,0)
+        }}}
+
+    \tikzset{yzplane/.style={cm={
+        sin(\phiView), -sin(\thetaView)*cos(\phiView),
+        0, cos(\thetaView),
+        (0,0)
+        }}}
+
+    \tikzset{stateplane/.style={cm={
+        sin(\phiView+\phiState-90), -sin(\thetaView)*cos(\phiView+\phiState-90),
+        0, cos(\thetaView),
+        (0,0)
+        }}}
+
+    \tikzset{trajplane/.style={cm={
+      sin(\phiView+\phiState-90), -sin(\thetaView)*cos(\phiView+\phiState-90),
+      0, cos(\thetaView),
+      (0,0)
+      }}}
+
+    \pgfmathsetmacro\sx{\radius*sin(\thetaState)}
+    \pgfmathsetmacro\sy{\radius*cos(\thetaState)}
+
+    \pgfblochstate{\Sx}{\Sy}{\thetaState}{\phiState}
+    % \pgfmathsetmacro\Sx{\radius*(sin(\phiState)*sin(\phiView)*sin(\thetaState) - sin(\thetaState)*cos(\phiState)*cos(\phiView))}
+    % \pgfmathsetmacro\Sy{\radius*(-sin(\phiState)*sin(\thetaState)*sin(\thetaView)*cos(\phiView) - sin(\phiView)*sin(\thetaState)*sin(\thetaView)*cos(\phiState) + cos(\thetaState)*cos(\thetaView))}
+
+    % \fill[ball color=white] (0,0) circle (\radius);
+
+
+    \DrawLatitudeCircle{xyplane}{0}{\radius} % equator
+    \DrawLongitudeCircle[\radius]{\phiView} % xzplane
+    \DrawLongitudeCircle[\radius]{\phiView+90} % yzplane   
+
+    \pgfmathsetmacro\Xx{-\radius*cos(\phiView)}
+    \pgfmathsetmacro\Xy{-\radius*sin(\phiView)*sin(\thetaView)}
+
+    \pgfmathsetmacro\Yx{\radius*sin(\phiView)}
+    \pgfmathsetmacro\Yy{-\radius*cos(\phiView)*sin(\thetaView)}
+
+    \pgfmathsetmacro\Zx{0}
+    \pgfmathsetmacro\Zy{\radius*cos(\thetaView)}
+
+    \pgfmathsetmacro\Xradius{\radius/sqrt(cos(\phiView)*cos(\phiView) + sin(\phiView)*sin(\phiView)*sin(\thetaView)*sin(\thetaView))}
+    \pgfmathsetmacro\Yradius{\radius/sqrt(sin(\phiView)*sin(\phiView) + cos(\phiView)*cos(\phiView)*sin(\thetaView)*sin(\thetaView))}
+    \pgfmathsetmacro\Zradius{\radius/sqrt(cos(\thetaView)*cos(\thetaView))}
+
+
+    
+    \draw[xzplane] (-\Xspan*\radius,0) -- (-\Xradius,0);
+    \draw[xzplane,hidden] (-\Xradius,0) -- (\radius,0);
+    \coordinate[mark coordinate] (XP) at (\Xx,\Xy);
+    \coordinate[mark coordinate,hidden] (XM) at (-\Xx,-\Xy);
+    \draw[xzplane,-{Latex[length=3mm]}] (\radius,0) -- (\Xspan*\radius,0);
+
+    \draw[yzplane] (-\Yspan*\radius+0.5,0) -- (-\Yradius,0);
+    \draw[yzplane,hidden] (-\Yradius,0) -- (\radius,0);
+    \coordinate[mark coordinate] (YP) at (\Yx,\Yy);
+    \coordinate[mark coordinate,hidden] (YM) at (-\Yx,-\Yy);
+    \draw[yzplane,-{Latex[length=3mm]}] (\radius,0) -- (\Yspan*\radius,0);
+
+    \draw[xzplane] (0,-\Zspan*\radius+0.3) -- (0,-\Zradius);
+    \draw[xzplane,hidden] (0,-\Zradius) -- (0,\radius);
+    \coordinate[mark coordinate] (ZP) at (\Zx,\Zy);
+    \coordinate[mark coordinate,hidden] (ZM) at (-\Zx,-\Zy);
+    \draw[xzplane,-{Latex[length=3mm]}] (0,\radius) -- (0,\Zspan*\radius);
+
+    
+    \draw (0,0) circle (\radius);
+
+    
+
+    % \draw[stateplane,dashed] (0,0) -- (\sx,0) -- (\sx,\sy);
+    % \draw[stateplane,-{Latex[length=1.2mm]}] (90:0.6) arc (90:90-\thetaState:0.6);
+    % \draw[xyplane,-{Latex[length=1.2mm]}] (0:0.6) arc (0:\phiState:0.6);
+
+    % etat quantique
+    % \draw[stateplane,very thick,paired1b,line cap=round] (0,0) -- (\sx,\sy);
+    % \fill[paired1b] (\Sx,\Sy) circle (0.1);
+
+    \node at (0.3,1.75) {$\ket{0}$};
+    \node at (0.3,-1.75) {$\ket{1}$};
+
+    % \fill[white,opacity = 0.8] (0.8,1.2) circle (0.2);
+    % \node[paired1b] at (0.8,1.2) {$\ket{\psi}$};
+    % \node at (0.15,0.65) {$\theta$};
+
+    % \fill[white,opacity = 0.8] (0.15,-0.3) circle (0.12);
+    % \node at (0.15,-0.3) {$\varphi$};
+
+    \node at (-1.45,-0.9) {$x$};
+    \node at (2.2,-0.6) {$y$};
+    \node at (-0.2,2.1) {$z$};
+
+
+    
+    
+    
+\end{tikzpicture}
+
+
+
+
+\end{document}
