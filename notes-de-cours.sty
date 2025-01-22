@@ -21,7 +21,8 @@
 
 \usepackage{mathtools}
 \usepackage{siunitx}
-\usepackage{physics}
+
+% \usepackage{physics}
 
 \definecolor{paired1a}{HTML}{a6cee3}
 \definecolor{paired1b}{HTML}{1f78b4}
@@ -62,120 +63,130 @@
 
 \usepackage{hyperref}
 \hypersetup{
-    colorlinks=true,
-    linkcolor=black!70!white,
-    citecolor=cyan
+  colorlinks=true,
+  linkcolor=black!70!white,
+  citecolor=cyan
 }
 
 \tcbset{mytcbbasestyle/.style={
     fontupper=\small,
     fontlower=\small,
     fonttitle=\small\bfseries,
-	frame hidden,
-	left=1mm, right=1mm,
+    frame hidden,
+    left=1mm, right=1mm,
     top=1mm, bottom=1mm,
     toptitle=0mm, bottomtitle=0mm,
-	boxrule=0pt,
+    boxrule=0pt,
     titlerule=1pt,
     boxsep=1mm,
-	colback=red!20!white,
+    colback=red!20!white,
     colframe=white,
     colbacktitle=red!50!white,
-	coltitle=black,
-	arc=0mm,
-	auto outer arc,
+    coltitle=black,
+    arc=0mm,
+    auto outer arc,
     before skip=3mm plus 1mm minus 1mm,
     after skip=3mm plus 1mm minus 1mm,
-	% before = \vglue 1mm,
+    % before = \vglue 1mm,
     % after skip = \vglue 1mm,
-	% breakable,
-	pad at break=1mm,
-	% oversize,
-	enhanced,
-	skin=enhanced jigsaw,
+    % breakable,
+    pad at break=1mm,
+    % oversize,
+    enhanced,
+    skin=enhanced jigsaw,
     shrink break goal = 2em,
-	% after=\color{black},
+    % after=\color{black},
     % before skip=2pt plus 2pt minus 0pt,
     parbox=false,
 }}
 
-\newcommand{\infonotationcolor}{paired1b}
-\newtcolorbox[auto counter,number within=section]{info_notation}[2][]{
-    mytcbbasestyle,
-    colback=\infonotationcolor!20!white,
-    colframe=white,
-    colbacktitle=\infonotationcolor!50!white,
-	coltitle=black,
-    title={Info notation \thetcbcounter{} : #2},
-    #1
+\newcommand{\notationcolor}{paired1b}
+\newtcolorbox[auto counter,number within=section]{notation}[2][]{
+  mytcbbasestyle,
+  colback=\notationcolor!20!white,
+  colframe=white,
+  colbacktitle=\notationcolor!50!white,
+  coltitle=black,
+  title={Notation \thetcbcounter{} : #2},
+  #1
 }
 
 \newcommand{\exemplecolor}{paired5b}
 \newtcolorbox[auto counter,number within=section]{exemple}[2][]{
-    mytcbbasestyle,
-    colback=\exemplecolor!20!white,
-    colframe=white,
-    colbacktitle=\exemplecolor!50!white,
-	coltitle=black,
-    title={\def\temp{#2}\ifx\temp\empty Exemple \thetcbcounter{} \else Exemple \thetcbcounter{} : #2\fi},
-    % breakable,
-    #1
+  mytcbbasestyle,
+  colback=\exemplecolor!20!white,
+  colframe=white,
+  colbacktitle=\exemplecolor!50!white,
+  coltitle=black,
+  title={\def\temp{#2}\ifx\temp\empty Exemple \thetcbcounter{} \else Exemple \thetcbcounter{} : #2\fi},
+  % breakable,
+  #1
 }
 
-\newcommand{\demonstrationcolor}{paired6b}
-\newtcolorbox[auto counter,number within=section]{demonstration}[2][]{
-    mytcbbasestyle,
-    colback=\demonstrationcolor!20!white,
-    colframe=white,
-    colbacktitle=\demonstrationcolor!50!white,
-	coltitle=black,
-    title={\def\temp{#2}\ifx\temp\empty Démonstration \thetcbcounter{} \else Démonstration \thetcbcounter{} : #2\fi},
-    % breakable,
-    #1
-}
+% \newcommand{\demonstrationcolor}{paired6b}
+% \newtcolorbox[auto counter,number within=section]{demonstration}[2][]{
+%   mytcbbasestyle,
+%   colback=\demonstrationcolor!20!white,
+%   colframe=white,
+%   colbacktitle=\demonstrationcolor!50!white,
+%   coltitle=black,
+%   title={\def\temp{#2}\ifx\temp\empty Démonstration \thetcbcounter{} \else Démonstration \thetcbcounter{} : #2\fi},
+%   % breakable,
+%   #1
+% }
 
 \newcommand{\remarquecolor}{paired4b}
 \newtcolorbox[auto counter,number within=section]{remarque}[1][]{
-    mytcbbasestyle,
-    colback=\remarquecolor!20!white,
-    colframe=white,
-    colbacktitle=\remarquecolor!50!white,
-	coltitle=black,
-    title={Remarque},
-    #1
+  mytcbbasestyle,
+  colback=\remarquecolor!20!white,
+  colframe=white,
+  colbacktitle=\remarquecolor!50!white,
+  coltitle=black,
+  title={Remarque},
+  #1
 }
 
 \newcommand{\exercicecolor}{paired2b}
 \newtcolorbox[auto counter,number within=section]{exercice}[2][]{
-    mytcbbasestyle,
-    colback=\exercicecolor!20!white,
-    colframe=white,
-    colbacktitle=\exercicecolor!50!white,
-	coltitle=black,
-    title={Exercice \thetcbcounter{} : #2},
-    #1,
+  mytcbbasestyle,
+  colback=\exercicecolor!20!white,
+  colframe=white,
+  colbacktitle=\exercicecolor!50!white,
+  coltitle=black,
+  title={Exercice \thetcbcounter{} : #2},
+  #1,
+}
+
+\newcommand{\notioncolor}{paired6b}
+\newtcolorbox[auto counter,number within=section]{notion}[2][]{
+  mytcbbasestyle,
+  colback=\notioncolor!20!white,
+  colframe=white,
+  colbacktitle=\notioncolor!50!white,
+  coltitle=black,
+  title={Notion importante \thetcbcounter{} : #2},
+  #1,
 }
 
 \newcommand{\exercicesolutioncolor}{paired3b}
 \newtcolorbox[auto counter,number within=section]{exercice_solution}[1][]{
-    mytcbbasestyle,
-    colback=\exercicesolutioncolor!20!white,
-    colframe=white,
-    colbacktitle=\exercicesolutioncolor!50!white,
-	coltitle=black,
-    breakable,
-    #1,
+  mytcbbasestyle,
+  colback=\exercicesolutioncolor!20!white,
+  colframe=white,
+  colbacktitle=\exercicesolutioncolor!50!white,
+  coltitle=black,
+  breakable,
+  #1,
 }
 
 \newcommand{\inputexercice}[2][]{
-    \begin{exercice}[label={exer:#2}]{#1}
-        \input{\exerpath/#2.tex}
-    \end{exercice}
-    }
+  \begin{exercice}[label={exer:#2}]{#1}
+    \input{\exerpath/#2.tex}
+  \end{exercice}
+}
 
 \newcommand{\inputexercicesolution}[2][]{
-    \begin{exercice_solution}[label={exer_sol:#2},title={Exercice~\ref{exer:#2} : #1}]
-        \input{\exerpath/#2_SOL.tex}
-    \end{exercice_solution}
-    }
-
+  \begin{exercice_solution}[label={exer_sol:#2},title={Exercice~\ref{exer:#2} : #1}]
+    \input{\exerpath/#2_SOL.tex}
+  \end{exercice_solution}
+}
