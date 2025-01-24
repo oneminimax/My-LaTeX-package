@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cp ./devoirs.sty /Users/maximedion/Library/texmf/tex/latex/devoirs.sty
+cp ./notes-de-cours.sty /Users/maximedion/Library/texmf/tex/latex/notes-de-cours.sty
+
+echo Done!
