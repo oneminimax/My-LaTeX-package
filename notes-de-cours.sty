@@ -155,17 +155,6 @@
   #1,
 }
 
-\newcommand{\notioncolor}{paired2b}
-\newtcolorbox[auto counter,number within=section]{notion}[2][]{
-  mytcbbasestyle,
-  colback=\notioncolor!20!white,
-  colframe=white,
-  colbacktitle=\notioncolor!50!white,
-  coltitle=black,
-  title={Notion importante \thetcbcounter{} : #2},
-  #1,
-}
-
 \newcommand{\exercicesolutioncolor}{paired6b}
 \newtcolorbox[auto counter,number within=section]{exercice_solution}[1][]{
   mytcbbasestyle,
@@ -174,6 +163,17 @@
   colbacktitle=\exercicesolutioncolor!50!white,
   coltitle=black,
   breakable,
+  #1,
+}
+
+\newcommand{\notioncolor}{paired2b}
+\newtcolorbox[auto counter,number within=section]{notion}[2][]{
+  mytcbbasestyle,
+  colback=\notioncolor!20!white,
+  colframe=white,
+  colbacktitle=\notioncolor!50!white,
+  coltitle=black,
+  title={Notion importante \thetcbcounter{} : #2},
   #1,
 }
 

@@ -71,89 +71,7 @@
   citecolor=cyan
 }
 
-\makeatletter
-\def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
-\makeatother
-
-\newenvironment{linedsection}[1]{
-  \par\noindent\rule{0.05\textwidth}{1pt}\,\,\raisebox{-.3\ht\strutbox}{\textbf{#1}}\,\,\vhrulefill{1pt}\par \vspace{0.4cm}
-}{
-  \par\vspace{0.4cm}
-}
-
-\newcounter{exercicecounter}
-\newenvironment{exercice}[1]{
-  \refstepcounter{exercicecounter}
-  \begin{linedsection}{Exercice \theexercicecounter : #1}
-  }{
-  \end{linedsection}
-}
-
-\newenvironment{exercicesolution}[1][\theexercicecounter]{
-  \color{gray}
-  \begin{linedsection}{Solution exercice #1}
-  }{
-  \end{linedsection}
-}
-
-\newcounter{questioncounter}
-\newenvironment{question}[1]{
-  \refstepcounter{questioncounter}
-  \begin{linedsection}{Question \thequestioncounter : #1}
-  }{
-  \end{linedsection}
-}
-
-\newenvironment{questionsolution}[1][\thequestioncounter]{
-  \color{gray}
-  \begin{linedsection}{Solution question #1}
-  }{
-  \end{linedsection}
-}
-
-\newenvironment{questionexamen}[2]{
-  \refstepcounter{questioncounter}
-  \begin{linedsection}{Question \thequestioncounter : #1 (#2 pts)}
-  }{
-  \end{linedsection}
-}
-
-\newcommand{\inputexercice}[2][]{
-  \begin{exercice}{#1}
-    \noindent \input{\exerpath/#2.tex}
-  \end{exercice}
-}
-
-\newcommand{\inputexercicesolution}[2][]{
-  \begin{exercicesolution}
-    \noindent \input{\exerpath/#2_SOL.tex}
-  \end{exercicesolution}
-}
-
-\newcommand{\inputquestion}[2][]{
-  \begin{question}{#1}
-    \noindent \input{\exerpath/#2.tex}
-  \end{question}
-}
-
-\newcommand{\inputquestionsolution}[2][]{
-  \begin{questionsolution}
-    \noindent \input{\exerpath/#2_SOL.tex}
-  \end{questionsolution}
-}
-
-\newtotcounter{totalquestions}
-\setcounter{totalquestions}{0}
-\newtotcounter{totalpoints}
-\setcounter{totalpoints}{0}
-
-\newcommand{\inputquestionpoints}[3][]{
-  \begin{question}{#1 (#3 pts)}
-    \noindent \input{\exerpath/#2.tex}
-  \end{question}
-  \addtocounter{totalpoints}{#3}
-  \addtocounter{totalquestions}{1}
-}
+\newcommand\setboxcounter[2]{\setcounter{#1}{#2}}
 
 \tcbset{mytcbbasestyle/.style={
     fontupper=\small,
@@ -196,4 +114,78 @@
   coltitle=black,
   title={Remarque},
   #1
+}
+
+\newcommand{\exercicecolor}{paired1b}
+\newtcolorbox[auto counter]{exercice}[2][]{
+  mytcbbasestyle,
+  colback=\exercicecolor!20!white,
+  colframe=white,
+  colbacktitle=\exercicecolor!50!white,
+  coltitle=black,
+  title={Exercice \thetcbcounter{} : #2},
+  #1,
+}
+
+\newcommand{\exercicesolutioncolor}{paired6b}
+\newtcolorbox[auto counter]{exercice_solution}[1][]{
+  mytcbbasestyle,
+  colback=\exercicesolutioncolor!20!white,
+  colframe=white,
+  colbacktitle=\exercicesolutioncolor!50!white,
+  coltitle=black,
+  breakable,
+  #1,
+}
+
+\newcommand{\questioncolor}{paired1b}
+\newtcolorbox[auto counter]{question}[2][]{
+  mytcbbasestyle,
+  colback=\questioncolor!20!white,
+  colframe=white,
+  colbacktitle=\questioncolor!50!white,
+  coltitle=black,
+  title={Question \thetcbcounter{} : #2},
+  #1,
+}
+
+\makeatletter
+\def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
+\makeatother
+
+\newcommand{\inputexercice}[2][]{
+  \begin{exercice}[label={exer:#2}]{#1}
+    \input{\exerpath/#2.tex}
+  \end{exercice}
+}
+
+\newcommand{\inputexercicesolution}[2][]{
+  \begin{exercice_solution}[label={exer_sol:#2},title={Exercice~\ref{exer:#2} : #1}]
+    \input{\exerpath/#2_SOL.tex}
+  \end{exercice_solution}
+}
+
+\newcommand{\inputquestion}[2][]{
+  \begin{question}{#1}
+    \noindent \input{\exerpath/#2.tex}
+  \end{question}
+}
+
+\newenvironment{linedsection}[1]{
+  \par\noindent\rule{0.05\textwidth}{1pt}\,\,\raisebox{-.3\ht\strutbox}{\textbf{#1}}\,\,\vhrulefill{1pt}\par \vspace{0.4cm}
+}{
+  \par\vspace{0.4cm}
+}
+
+\newtotcounter{totalquestions}
+\setcounter{totalquestions}{0}
+\newtotcounter{totalpoints}
+\setcounter{totalpoints}{0}
+
+\newcommand{\inputquestionpoints}[3][]{
+  \begin{question}{#1 (#3 pts)}
+    \noindent \input{\exerpath/#2.tex}
+  \end{question}
+  \addtocounter{totalpoints}{#3}
+  \addtocounter{totalquestions}{1}
 }

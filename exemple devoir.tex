@@ -1,35 +1,30 @@
 \documentclass[11pt]{article}
 
 \usepackage{devoirs}
-
+\usepackage{physicus}
 
 \begin{document}
 
-
 \begin{center}
-    {\Large BSQ 110 - Introduction aux sciences quantiques et à leurs applications} \\ \vspace{5mm}
-    {\LARGE\sffamily Devoir \#2} \\
-    Les réponses aux \textbf{questions} sont à remettre le jeudi 21 septembre 2023.
+  {\Large BSQ 110 - Introduction aux sciences quantiques et à leurs applications} \\ \vspace{5mm}
+  {\LARGE\sffamily Devoir \#2} \\
+  Les réponses aux \textbf{questions} sont à remettre le jeudi 21 septembre 2023.
 \end{center}
 
 \def\exerpath{questions}
 
-\begin{linedsection}{Banque de portes quantiques}
-    
-    \begin{align*}
-        \hat{X} = \pmqty{0 & 1 \\ 1 & 0} \quad \hat{Y} = \pmqty{0 & -i \\ i & 0} \quad \hat{Z} = \pmqty{1 & 0 \\ 0 & -1} \quad \hat{H} = \frac{1}{\sqrt{2}}\pmqty{1 & 1 \\ 1 & -1} \quad \hat{S} = \pmqty{1 & 0 \\ 0 & i}
-    \end{align*}
-\end{linedsection}
+\begin{remarque}
+  Banque de portes quantiques
+  \begin{align*}
+    \hat{X} = \pmqty{0 & 1 \\ 1 & 0} \quad \hat{Y} = \pmqty{0 & -i \\ i & 0} \quad \hat{Z} = \pmqty{1 & 0 \\ 0 & -1} \quad \hat{H} = \frac{1}{\sqrt{2}}\pmqty{1 & 1 \\ 1 & -1} \quad \hat{S} = \pmqty{1 & 0 \\ 0 & i}
+  \end{align*}
+\end{remarque}
 
-\inputexercice[Quelque part sur la sphère de Block]{quelque_part_sphere_bloch}
+\inputquestion[Quelque part sur la sphère de Block]{quelque_part_sphere_bloch}
 
-\inputquestion[Identités]{identite_clifford_1_qubit}
-
-\inputquestionsolution[Identités]{identite_clifford_1_qubit}
+\inputexercice[Identités]{identite_clifford_1_qubit}
+\inputexercicesolution[Identités]{identite_clifford_1_qubit}
 
 \inputquestionpoints[Les matrices de Pauli]{produit_matrice_pauli}{8}
 
-
-
 \end{document}
-
