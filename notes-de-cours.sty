@@ -151,7 +151,7 @@
   colframe=white,
   colbacktitle=\exercicecolor!50!white,
   coltitle=black,
-  title={Exercice \thetcbcounter{} : #2},
+  title={\vphantom{p}Exercice \thetcbcounter{} : #2},
   #1,
 }
 
@@ -184,7 +184,7 @@
 }
 
 \newcommand{\inputexercicesolution}[2][]{
-  \begin{exercice_solution}[label={exer_sol:#2},title={Exercice~\ref{exer:#2} : #1}]
+  \begin{exercice_solution}[label={exer_sol:#2},title={\vphantom{p}Exercice~\ref{exer:#2} : #1}]
     \input{\exerpath/#2_SOL.tex}
   \end{exercice_solution}
 }
