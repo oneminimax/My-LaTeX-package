@@ -17,14 +17,18 @@
 \usepackage[shortlabels]{enumitem}
 % \setlist{itemsep=2pt}
 
-
-
 % \usepackage{mdframed}
 
 \usepackage{mathtools}
 \usepackage{siunitx}
 
 \usepackage{totcount}
+
+\usepackage{wrapfig}
+
+\usepackage{ifthen}
+
+\usepackage{marginnote}
 
 \definecolor{paired1a}{HTML}{a6cee3}
 \definecolor{paired1b}{HTML}{1f78b4}
@@ -82,16 +86,18 @@
 }
 
 \newcounter{exercicecounter}
-\newenvironment{exercice}[1]{
+\newenvironment{exercice}[2]{
   \refstepcounter{exercicecounter}
+  \label{exer:#2}
   \begin{linedsection}{Exercice \theexercicecounter : #1}
   }{
   \end{linedsection}
 }
 
-\newenvironment{exercicesolution}[1][\theexercicecounter]{
+% \newenvironment{exercicesolution}[1][\theexercicecounter]{
+\newenvironment{exercicesolution}[2]{
   \color{gray}
-  \begin{linedsection}{Solution exercice #1}
+  \begin{linedsection}{Solution exercice \ref{exer:#2}}
   }{
   \end{linedsection}
 }
@@ -119,13 +125,13 @@
 }
 
 \newcommand{\inputexercice}[2][]{
-  \begin{exercice}{#1}
+  \begin{exercice}{#1}{#2}
     \noindent \input{\exerpath/#2.tex}
   \end{exercice}
 }
 
 \newcommand{\inputexercicesolution}[2][]{
-  \begin{exercicesolution}
+  \begin{exercicesolution}{#1}{#2}
     \noindent \input{\exerpath/#2_SOL.tex}
   \end{exercicesolution}
 }
@@ -196,4 +202,13 @@
   coltitle=black,
   title={Remarque},
   #1
+}
+
+\newboolean{showpoints}
+\setboolean{showpoints}{true}
+
+\newcommand{\questionpoints}[1]{
+  \ifthenelse{\boolean{showpoints}}
+  {\reversemarginpar\marginnote{\footnotesize (#1)}} % Behavior if true
+  {}                  % Behavior if false
 }
