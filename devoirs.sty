@@ -94,6 +94,14 @@
   \end{linedsection}
 }
 
+\newenvironment{question}[2]{
+  \refstepcounter{exercicecounter}
+  \label{exer:#2}
+  \begin{linedsection}{Question \theexercicecounter : #1}
+  }{
+  \end{linedsection}
+}
+
 \newenvironment{exercicesolution}[2]{
   \color{gray}
   \begin{linedsection}{Solution exercice \ref{exer:#2}}
@@ -101,27 +109,17 @@
   \end{linedsection}
 }
 
-\newcounter{questioncounter}
-\newenvironment{question}[1]{
-  \refstepcounter{questioncounter}
-  \begin{linedsection}{Question \thequestioncounter : #1}
-  }{
-  \end{linedsection}
-}
-
-\newenvironment{questionsolution}[1][\thequestioncounter]{
+\newenvironment{questionsolution}[2]{
   \color{gray}
-  \begin{linedsection}{Solution question #1}
+  \begin{linedsection}{Solution question \ref{exer:#2}}
   }{
   \end{linedsection}
 }
 
-\newenvironment{questionexamen}[2]{
-  \refstepcounter{questioncounter}
-  \begin{linedsection}{Question \thequestioncounter : #1 (#2 pts)}
-  }{
-  \end{linedsection}
-}
+\newtotcounter{totalquestions}
+\setcounter{totalquestions}{0}
+\newtotcounter{totalpoints}
+\setcounter{totalpoints}{0}
 
 \newcommand{\inputexercice}[2][]{
   \begin{exercice}{#1}{#2}
@@ -136,29 +134,54 @@
 }
 
 \newcommand{\inputquestion}[2][]{
-  \begin{question}{#1}
+  \begin{question}{#1}{#2}
     \noindent \input{\exerpath/#2.tex}
   \end{question}
 }
 
-\newcommand{\inputquestionsolution}[2][]{
-  \begin{questionsolution}
-    \noindent \input{\exerpath/#2_SOL.tex}
-  \end{questionsolution}
-}
-
-\newtotcounter{totalquestions}
-\setcounter{totalquestions}{0}
-\newtotcounter{totalpoints}
-\setcounter{totalpoints}{0}
-
 \newcommand{\inputquestionpoints}[3][]{
-  \begin{question}{#1 (#3 pts)}
+  \begin{question}{#1 (#3 pts)}{#2}
     \noindent \input{\exerpath/#2.tex}
   \end{question}
   \addtocounter{totalpoints}{#3}
   \addtocounter{totalquestions}{1}
 }
+
+\newcommand{\inputquestionsolution}[2][]{
+  \begin{questionsolution}{#1}{#2}
+    \noindent \input{\exerpath/#2_SOL.tex}
+  \end{questionsolution}
+}
+
+% \newcounter{questioncounter}
+% \newenvironment{question}[1]{
+%   \refstepcounter{questioncounter}
+%   \begin{linedsection}{Question \thequestioncounter : #1}
+%   }{
+%   \end{linedsection}
+% }
+
+% \newenvironment{questionsolution}[1][\thequestioncounter]{
+%   \color{gray}
+%   \begin{linedsection}{Solution question #1}
+%   }{
+%   \end{linedsection}
+% }
+
+% \newenvironment{questionexamen}[2]{
+%   \refstepcounter{questioncounter}
+%   \begin{linedsection}{Question \thequestioncounter : #1 (#2 pts)}
+%   }{
+%   \end{linedsection}
+% }
+
+% \newcommand{\inputquestionpoints}[3][]{
+%   \begin{question}{#1 (#3 pts)}
+%     \noindent \input{\exerpath/#2.tex}
+%   \end{question}
+%   \addtocounter{totalpoints}{#3}
+%   \addtocounter{totalquestions}{1}
+% }
 
 \tcbset{mytcbbasestyle/.style={
     fontupper=\small,
