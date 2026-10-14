@@ -229,8 +229,16 @@
 \newboolean{showpoints}
 \setboolean{showpoints}{true}
 
+% \newcommand{\questionpoints}[1]{
+%   \ifthenelse{\boolean{showpoints}}
+%   {\reversemarginpar\marginnote{\footnotesize (#1)}} % Behavior if true
+%   {}                  % Behavior if false
+% }
+
 \newcommand{\questionpoints}[1]{
   \ifthenelse{\boolean{showpoints}}
-  {\reversemarginpar\marginnote{\footnotesize (#1)}} % Behavior if true
+  {\makebox[0pt][l]{%
+      \hspace*{-1.7cm}\raisebox{0pt}[0pt][0pt]{%
+  {\footnotesize (#1)}}}} % Behavior if true
   {}                  % Behavior if false
 }
